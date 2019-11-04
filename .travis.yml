@@ -1,0 +1,10 @@
+language: go
+
+install:
+  - go get -d -v ./events
+
+script:
+  - golint ./events
+  - go build -v ./events
+
+
