@@ -2,7 +2,8 @@ language: go
 
 install:
   - go get -d -v ./events
-
+  - go get golang.org/x/lint/golint
+  
 script:
   - golint ./events
   - go build -v ./events
