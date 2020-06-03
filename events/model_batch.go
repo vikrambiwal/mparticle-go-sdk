@@ -3,7 +3,7 @@ package events
 // Batch struct for Batch
 type Batch struct {
 	SourceRequestID string        `json:"source_request_id,omitempty"`
-	BatchContext    *BatchContext `json:"batch_context,omitempty"`
+	BatchContext    *BatchContext `json:"context,omitempty"`
 	// Provide a list of event objects - such as CustomEvent, ScreenViewEvent, or CommerceEvent
 	Events                []Event                      `json:"events,omitempty"`
 	DeviceInfo            *DeviceInformation           `json:"device_info,omitempty"`

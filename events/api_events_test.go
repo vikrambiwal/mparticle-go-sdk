@@ -16,12 +16,26 @@ func TestFullBatch(t *testing.T) {
 		context.Background(),
 		ContextBasicAuth,
 		BasicAuth{
-			APIKey:    "REPLACE ME WITH KEY",
-			APISecret: "REPLACE ME WITH SECRET",
+			APIKey:    "REPLACE WITH KEY",
+			APISecret: "REPLACE WITH SECRET",
 		},
 	)
 
 	batch := Batch{Environment: DevelopmentEnvironment} //or "ProductionEnvironment"
+	//set context
+	batch.BatchContext = &BatchContext{
+		//configure data plan
+		DataPlan: &DataPlanContext{
+			PlanID:      "freddy_s_plan",
+			PlanVersion: 1,
+		},
+		//configure batching
+		Batching: &BatchingContext{
+			Bypass:       true,
+			PartitionKey: "6eea30aa-6ccc-4b30-a691-3afa211d54ae",
+			RequestIDs:   []string{"foo", "bar"},
+		},
+	}
 
 	//set user identities
 	batch.UserIdentities = &UserIdentities{
@@ -66,7 +80,7 @@ func TestFullBatch(t *testing.T) {
 		GDPR: make(map[string]GdprConsentState),
 	}
 	consentState.GDPR["performance"] = gdprConsentState
-	batch.ConsentState = consentState
+	//batch.ConsentState = consentState
 
 	totalProductAmount := 10.00
 	totalProducts := int32(2)

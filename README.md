@@ -131,6 +131,15 @@ batch.UserIdentities = &events.UserIdentities{
     Email:      "go-example@foo.com",
 }
 
+//set context
+batch.BatchContext = &BatchContext{
+    //configure data plan
+    DataPlan: &DataPlanContext{
+        PlanID:      "freddy_s_plan",
+        PlanVersion: 1,
+    },
+}
+
 //set device identities
 batch.DeviceInfo = &events.DeviceInformation{
     IOSAdvertisingID: "607258d9-c28b-43ad-95ed-e9593025d5a1",
