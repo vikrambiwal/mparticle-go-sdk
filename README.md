@@ -113,77 +113,87 @@ commerceEvent.Data.ProductAction = &events.ProductAction{
 The SDK supports both multi-batch ("bulk") or single-batch uploads:
 
 ```go
-client := events.NewAPIClient(events.NewConfiguration())
+package main
 
-ctx := context.WithValue(
-    context.Background(),
-    events.ContextBasicAuth,
-    events.BasicAuth{
-        APIKey:    "REPLACE WITH API KEY",
-        APISecret: "REPLACE WITH API SECRET",
-    },
+import (
+	"context"
+	"fmt"
+	"github.com/mParticle/mparticle-go-sdk/events"
 )
-batch := events.Batch{Environment: events.DevelopmentEnvironment} //or "ProductionEnvironment"
 
-//set user identities
-batch.UserIdentities = &events.UserIdentities{
-    CustomerID: "go1234",
-    Email:      "go-example@foo.com",
-}
+func main() {
+	client := events.NewAPIClient(events.NewConfiguration())
 
-//set context
-batch.BatchContext = &BatchContext{
-    //configure data plan
-    DataPlan: &DataPlanContext{
-        PlanID:      "freddy_s_plan",
-        PlanVersion: 1,
-    },
-}
+	ctx := context.WithValue(
+		context.Background(),
+		events.ContextBasicAuth,
+		events.BasicAuth{
+			APIKey:    "REPLACE WITH API KEY",
+			APISecret: "REPLACE WITH API SECRET",
+		},
+	)
+	batch := events.Batch{Environment: events.DevelopmentEnvironment} //or "ProductionEnvironment"
 
-//set device identities
-batch.DeviceInfo = &events.DeviceInformation{
-    IOSAdvertisingID: "607258d9-c28b-43ad-95ed-e9593025d5a1",
-}
+	//set user identities
+	batch.UserIdentities = &events.UserIdentities{
+		CustomerID: "go1234",
+		Email:      "go-example@foo.com",
+	}
 
-//set user attributes
-batch.UserAttributes = make(map[string]interface{})
-batch.UserAttributes["foo"] = "bar"
-batch.UserAttributes["foo-array"] = []string{"bar1", "bar2"}
+	//set context
+	batch.BatchContext = &events.BatchContext{
+		//configure data plan
+		DataPlan: &events.DataPlanContext{
+			PlanID:      "freddy_s_plan",
+			PlanVersion: 1,
+		},
+	}
 
-customEvent := events.NewCustomEvent()
-customEvent.Data.EventName = "My Custom Event Name"
-customEvent.Data.CustomEventType = events.OtherCustomEventType
-customEvent.Data.CustomAttributes = make(map[string]string)
-customEvent.Data.CustomAttributes["foo"] = "bar"
+	//set device identities
+	batch.DeviceInfo = &events.DeviceInformation{
+		IOSAdvertisingID: "607258d9-c28b-43ad-95ed-e9593025d5a1",
+	}
 
-screenEvent := events.NewScreenViewEvent()
-screenEvent.Data.ScreenName = "My Screen Name"
+	//set user attributes
+	batch.UserAttributes = make(map[string]interface{})
+	batch.UserAttributes["foo"] = "bar"
+	batch.UserAttributes["foo-array"] = []string{"bar1", "bar2"}
 
-totalProductAmount := 123.12
-product := events.Product{
-    TotalProductAmount: &totalProductAmount,
-    ID:                 "product-id",
-    Name:               "product-name",
-}
+	customEvent := events.NewCustomEvent()
+	customEvent.Data.EventName = "My Custom Event Name"
+	customEvent.Data.CustomEventType = events.OtherCustomEventType
+	customEvent.Data.CustomAttributes = make(map[string]string)
+	customEvent.Data.CustomAttributes["foo"] = "bar"
 
-commerceEvent := events.NewCommerceEvent()
-totalPurchaseAmount := 123.12
-commerceEvent.Data.ProductAction = &events.ProductAction{
-    Action:        events.PurchaseAction,
-    TotalAmount:   &totalPurchaseAmount,
-    TransactionID: "foo-transaction-id",
-    Products:      []events.Product{product},
-}
+	screenEvent := events.NewScreenViewEvent()
+	screenEvent.Data.ScreenName = "My Screen Name"
 
-batch.Events = []events.Event{customEvent, screenEvent, commerceEvent}
+	totalProductAmount := 123.12
+	product := events.Product{
+		TotalProductAmount: &totalProductAmount,
+		ID:                 "product-id",
+		Name:               "product-name",
+	}
 
-result, err := client.EventsAPI.UploadEvents(ctx, batch)
-if result != nil && result.StatusCode == 202 {
-    fmt.Println("Upload successful")
-} else {
-    t.Errorf(
-        "Error while uploading!\nstatus: %v\nresponse body: %#v",
-        err.(events.GenericError).Error(),
-        err.(events.GenericError).Model())
+	commerceEvent := events.NewCommerceEvent()
+	totalPurchaseAmount := 123.12
+	commerceEvent.Data.ProductAction = &events.ProductAction{
+		Action:        events.PurchaseAction,
+		TotalAmount:   &totalPurchaseAmount,
+		TransactionID: "foo-transaction-id",
+		Products:      []events.Product{product},
+	}
+
+	batch.Events = []events.Event{customEvent, screenEvent, commerceEvent}
+
+	result, err := client.EventsAPI.UploadEvents(ctx, batch)
+	if result != nil && result.StatusCode == 202 {
+		fmt.Println("Upload successful")
+	} else {
+		fmt.Errorf(
+			"Error while uploading!\nstatus: %v\nresponse body: %#v",
+			err.(events.GenericError).Error(),
+			err.(events.GenericError).Model())
+	}
 }
 ```
