@@ -19,7 +19,7 @@ type ProductAction struct {
 // ProductActionType determines which action the user took
 type ProductActionType string
 
-// List of CustomEventType
+// List of ProductActionType
 const (
 	AddToCartAction          ProductActionType = "add_to_cart"
 	RemoveFromCartAction     ProductActionType = "remove_from_cart"

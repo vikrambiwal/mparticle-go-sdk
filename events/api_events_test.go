@@ -45,7 +45,9 @@ func TestFullBatch(t *testing.T) {
 
 	//set device identities
 	batch.DeviceInfo = &DeviceInformation{
-		IOSAdvertisingID: "607258d9-c28b-43ad-95ed-e9593025d5a1",
+		IOSAdvertisingID:       "607258d9-c28b-43ad-95ed-e9593025d5a1",
+		ATTTimestampUnixtimeMS: int64(time.Now().Unix()),
+		ATTAuthorizationStatus: AuthorizedATTAuthorizationStatus,
 	}
 
 	//set user attributes
