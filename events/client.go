@@ -159,7 +159,8 @@ func (c *APIClient) GetConfig() *Configuration {
 // prepareRequest build the request
 func (c *APIClient) prepareRequest(
 	ctx context.Context,
-	path string, method string,
+	path string,
+	method string,
 	postBody interface{},
 	headerParams map[string]string,
 	queryParams url.Values,

@@ -55,6 +55,10 @@ func TestFullBatch(t *testing.T) {
 	batch.UserAttributes["foo"] = "bar"
 	batch.UserAttributes["foo-array"] = []string{"bar1", "bar2"}
 
+	batch.PartnerIdentity = "foo_partner"
+	batch.PartnerIdentities = make(map[string]string)
+	batch.PartnerIdentities["foo_partner"] = "foo_partner_1234"
+
 	customEvent := NewCustomEvent()
 	customEvent.Data.EventName = "My Custom Event Name"
 	customEvent.Data.CustomEventType = OtherCustomEventType
