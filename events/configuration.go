@@ -16,7 +16,7 @@ func (c contextKey) String() string {
 
 const (
 	//SDKVersion Version of the Go SDK
-	SDKVersion string = "1.1.0"
+	SDKVersion string = "1.1.1"
 )
 
 var (
