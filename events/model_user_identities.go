@@ -15,4 +15,10 @@ type UserIdentities struct {
 	OtherID2                 string `json:"other_id_2,omitempty"`
 	OtherID3                 string `json:"other_id_3,omitempty"`
 	OtherID4                 string `json:"other_id_4,omitempty"`
+	OtherID5                 string `json:"other_id_5,omitempty"`
+	OtherID6                 string `json:"other_id_6,omitempty"`
+	OtherID7                 string `json:"other_id_7,omitempty"`
+	OtherID8                 string `json:"other_id_8,omitempty"`
+	OtherID9                 string `json:"other_id_9,omitempty"`
+	OtherID10                string `json:"other_id_10,omitempty"`
 }
