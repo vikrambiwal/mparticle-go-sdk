@@ -21,7 +21,7 @@ type CommerceEventData struct {
 	IsMainThread                bool                         `json:"is_main_thread,omitempty"`
 	CanonicalName               string                       `json:"canonical_name,omitempty"`
 	EventSystemNotificationInfo *EventSystemNotificationInfo `json:"event_system_notification_info,omitempty"`
-	ProductAction               *ProductAction               `json:"product_action,omitempty"`
+	ProductAction               *map[string]interface{}      `json:"product_action,omitempty"`
 	PromotionAction             *PromotionAction             `json:"promotion_action,omitempty"`
 	ProductImpressions          []ProductImpression          `json:"product_impressions,omitempty"`
 	ShoppingCart                *ShoppingCart                `json:"shopping_cart,omitempty"`
